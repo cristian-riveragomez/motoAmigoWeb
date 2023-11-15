@@ -1,0 +1,191 @@
+<h1 class="mt-3" *ngIf="!cargando">Mi Cuenta</h1>
+<hr class="titulos">
+  <form
+    autocomplete="off"
+    (ngSubmit)="actualizarUsuario(formularioValue)"
+    #formularioValue="ngForm"
+    *ngIf="!cargando"
+    class="animated fadeIn"
+  >
+    <div>
+      <div class="form-group row">
+        <label class="col-2 col-form-label">Nombre</label>
+        <div class="col-7">
+          <input
+            class="form-control"
+            type="text"
+            name="nombre"
+            required
+            [(ngModel)] = "usuario.nombre"
+            [class.is-invalid] = "nombre.invalid && nombre.touched"  
+            #nombre = "ngModel"
+            maxlength="30"
+          />
+          <small *ngIf="nombre.invalid && nombre.touched" class="form-text text-danger"> El campo Nombre es obligatorio</small>
+        </div>
+      </div>
+
+      <div class="form-group row ">
+        <label class="col-2 col-form-label">Apellido</label>
+        <div class="col-7">
+          <input
+            class="form-control"
+            type="text"
+            name="apellido"
+            required
+            [(ngModel)]="usuario.apellido"
+            [class.is-invalid] = "apellido.invalid && apellido.touched"  
+            #apellido = "ngModel"
+            maxlength="50"
+          />
+          <small *ngIf="apellido.invalid && apellido.touched" class="form-text text-danger"> El campo Apellido es obligatorio</small>
+        </div>
+      </div>
+
+      <div class="form-group row ">
+        <label class="col-2 col-form-label">Usuario</label>
+        <div class="col-7">
+          <input
+            class="form-control"
+            type="text"
+            name="nombreUsuario"
+            required
+            [(ngModel)]="usuario.nombreUsuario"
+            [class.is-invalid] = "nombreUsuario.invalid && nombreUsuario.touched"  
+            #nombreUsuario = "ngModel"
+            maxlength="20"
+            disabled
+          />
+          <small *ngIf="nombreUsuario.invalid && nombreUsuario.touched" class="form-text text-danger"> El campo Usuario es obligatorio</small>
+        </div>
+      </div>
+
+      <div class="form-group row ">
+        <label class="col-2 col-form-label">Contraseña</label>
+        <div class="col-7">
+          <input
+            class="form-control"
+            [type]="inputType"
+            name="contrasena"
+            required
+            [(ngModel)]="usuario.contrasena"
+            [class.is-invalid] = "contrasena.invalid && contrasena.touched"  
+            #contrasena = "ngModel"
+            maxlength="20"
+          />
+          <small *ngIf="contrasena.invalid && contrasena.touched" class="form-text text-danger"> El campo Constraseña es obligatorio</small>
+        </div>
+        <div>
+          <button class="btn btn-dark" type="button" (click)="togglePasswordVisibility()">Mostrar/ocultar contraseña</button>
+        </div>  
+      </div>
+    </div>
+
+    <div class="form-group row ">
+      <label class="col-2 col-form-label">Email</label>
+      <div class="col-7">
+        <input
+          class="form-control"
+          type="email"
+          [(ngModel)]="usuario.email"
+          name="email"  
+          [class.is-invalid] = "email.invalid && email.touched"  
+          #email = "ngModel"
+          maxlength="50"     
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+          required 
+          disabled
+        />
+        <small *ngIf="email.invalid && email.touched" class="form-text text-danger"> El campo Email es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="d-grid gap-2 col-4 mx-auto">
+      <button class="btn btn-success btn-block btn-lg" type="submit">Actualizar
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/>
+          </svg>
+      </button>
+    </div>
+    
+  </form>
+
+<h2 class="subTitulos" *ngIf="!cargando">Mis productos</h2>
+<div class="col-12 text-right mb-2" *ngIf="!cargando" >
+  <button  [routerLink]="['/crearRepuesto/nuevo']" class="btn btn-primary animated fadeIn">Crear Producto
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+    </svg>
+  </button>
+</div>
+
+<table *ngIf="!cargando && productos.length > 0" class="table animated fadeIn faster">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Tipo Producto</th>
+      <th scope="col">Precio</th>      
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let producto of productos; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td >{{ producto.nombre }}</td>
+      <td >{{ producto.tipoProducto }}</td>
+      <td>${{ producto.precio }}</td>
+      <td>
+        <button class="btn btn-info mr-1" [routerLink]="['/crearRepuesto', producto.idProducto]">
+          <i class="fa fa-pen"></i>
+        </button>
+
+        <button class="btn btn-danger ml-2" (click)="borrarProducto( producto, i )">
+          <i class="fa fa-trash"></i>
+        </button>
+      </td>
+    </tr>    
+  </tbody>
+</table>
+
+ <app-loading *ngIf="cargando"></app-loading>
+
+<div *ngIf="!cargando && productos.length === 0" class="alert alert-warning text-center mt-3">
+  <h4 class="alert-heading">No hay registros </h4>
+  <p><i class="fa fa-exclamation fa-2x"></i></p>
+</div>
+
+<h2 class="subTitulos" *ngIf="!cargando">Mis destacados</h2>
+
+<table *ngIf="!cargando && misProductosDestacados.length > 0" class="table animated fadeIn faster">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Tipo Producto</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let productoDestacado of misProductosDestacados; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ productoDestacado.nombre }}</td>
+        <td>{{ productoDestacado.tipoProducto }}</td>
+        <td>${{ productoDestacado.precio }}</td>
+        <td>
+          <button class="btn btn-info mr-1" [routerLink]="['/producto', productoDestacado.idProducto, 'cuenta']">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+              <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+              <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+            </svg>
+          </button>         
+        </td>
+      </tr>    
+    </tbody>
+  </table>
+
+<div *ngIf="!cargando && misProductosDestacados.length === 0" class="alert alert-warning text-center mt-3">
+  <h4 class="alert-heading">No hay registros </h4>
+  <p><i class="fa fa-exclamation fa-2x"></i></p>
+</div>

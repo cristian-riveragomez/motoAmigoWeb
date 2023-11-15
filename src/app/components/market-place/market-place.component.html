@@ -1,0 +1,71 @@
+<div class="mt-3">
+    <app-loading *ngIf="loading"></app-loading>
+</div>
+
+<div class="row titulos">    
+    <div class="col-md-12 titulos">
+        <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="Buscar productos...">
+    </div>
+</div>   
+
+<div class="row" *ngIf="!loading">  
+    <div *ngIf="!loading" class="col-md-10 card-columns animated fadeIn">
+        <div (click)="verProducto( item )" *ngFor="let item of productos" class="card text-dark">
+            <img class="card-img-top" [src]="item.imagenContenido" width="100" height="200">
+            <div class="card-body">
+                <h3 class="card-title text-center">{{item.nombre}}</h3>
+                <h3 class="card-text text-center">${{item.precio}}</h3>
+            </div>
+        </div>  
+    </div>
+       
+    <div *ngIf="!loading && productos.length === 0" class="col-md-10 alert alert-warning text-center mt-1">
+        <h1 class="alert-heading">No hay registros </h1>
+        <p><i class="fa fa-exclamation fa-5x"></i></p>
+    </div>
+    
+    <div class="col-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="ml-1" style="color:rgba(0, 0, 0, 0.747);">Filtros</h2>
+                
+                <h5 class="mt-3" style="color:rgba(0, 0, 0, 0.747);">Tipo Producto</h5>
+                <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="checkboxAccesoriosValue" (change)="onCheckboxChange()">
+                        <label style="color:black;" class="form-check-label" for="defaultCheck1">
+                            Accesorios
+                        </label>
+                </div>
+                <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="checkboxRepuestosValue" (change)="onCheckboxChange()">
+                        <label style="color:black;" class="form-check-label">
+                          Repuestos
+                        </label>
+                </div>                   
+                <div class="form">
+                    <h5 class="mt-4" style="color:rgba(0, 0, 0, 0.747);">Precio</h5>
+                    <label style="color:black;">Precio mínimo:</label>
+                    <input
+                        type="text"
+                        id="precioMinimoInput"
+                        [(ngModel)]="precioMinimoInput"
+                        maxlength="10"
+                        class="form-control"
+                    >   
+                    
+                    <label style="color:black;">Precio máximo:</label>
+                    <input
+                        type="text"
+                        id="precioMaximoInput"
+                        [(ngModel)]="precioMaximoInput"
+                        maxlength="10"
+                        class="form-control"
+                    >
+                    <br>
+                    <button class="btn btn-success btn-block btn-lg" (click)="ObtenerProductosPorPrecio()">Buscar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

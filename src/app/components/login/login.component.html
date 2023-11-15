@@ -1,0 +1,87 @@
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-4 text-center">
+            <form (ngSubmit)="login(form)" #form="ngForm">
+              
+              <div class="text-center mb-3">
+                <img src="/assets/img/motoAmigoIcon.png" width="135" height="135">
+                <div>
+                  <h3 style="color:black">MotoAmigo</h3>
+                </div>                
+              </div>              
+              
+              <div class="form-outline mb-4">
+                <small
+                  *ngIf="form.submitted && form.controls['email'].errors"
+                  class="form-text text-danger"
+                >
+                  El campo Email es obligatorio</small
+                >
+                <input
+                  type="text"
+                  name="email"
+                  [(ngModel)]="usuarioLogin.emailUsuario"
+                  #email="ngModel"
+                  class="form-control form-control"
+                  required                 
+                />
+                <label class="form-label" for="typeEmailX-2" style="color:black"
+                  >Email/Usuario</label
+                >
+              </div>
+
+              <div class="form-outline mb-4">
+                <small
+                  *ngIf="form.submitted && form.controls['contrasena'].errors"
+                  class="form-text text-danger"
+                >
+                  El campo Constraseña es obligatorio</small
+                >
+                <input
+                  [type]="inputType"
+                  name="contrasena"
+                  required
+                  [(ngModel)]="usuarioLogin.contrasena"
+                  #contrasena="ngModel"
+                  class="form-control form-control-lg"
+                />               
+                <label
+                  class="form-label"
+                  for="typePasswordX-2"
+                  style="color:black"
+                  >Contraseña</label
+                > 
+                <div>
+                  <button class="btn btn-dark" type="button" (click)="togglePasswordVisibility()">Mostrar/ocultar contraseña</button>
+                </div>                                               
+              </div>
+              
+              <button class="btn btn-primary btn-lg btn-block" type="submit">
+                Ingresar
+              </button>
+
+              <hr class="my-4" />
+
+              <div class="col">
+                <p style="color:black">
+                  No tiene una cuenta? <a [routerLink]="['/crearUsuario']">Crear cuenta</a>
+                </p>
+              </div>
+
+              <button
+                class="btn btn-lg btn-block btn-primary mb-2"
+                style="background-color: #3b5998;"
+                (click)="signInWithFacebook()"               
+              >
+                <i class="fab fa-facebook-f me-2"></i> Ingresar con facebook
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

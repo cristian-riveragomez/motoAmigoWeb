@@ -1,0 +1,67 @@
+<app-loading *ngIf="loadingProducto"></app-loading>
+
+<div class="row animated fadeIn" *ngIf="!loadingProducto">
+    <div class="col-12 text-right titulos">
+        <button  (click)="redireccionarPantalla()" class="btn btn-primary">
+            <i class="fa fa-arrow-left"></i>
+            Regresar
+        </button>
+    </div>
+
+    <div class="col-md-6 text-center">
+        <img width="400px" height="450px" class="text-center" [src]="imagenData" >
+    </div>
+    
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h2 style="color:black;">{{ producto.nombre }}</h2>
+                <h2 class="text-center" style="color:black;">${{ producto.precio }}</h2> 
+                <div style="background: darkgray;">
+                    <h4 class="card-footer" style="color:black;">
+                        TipoProducto:   {{ tipoProducto }}
+                    </h4>
+                    <h4 class="card-footer" style="color:black;">
+                        Marca:  {{ producto.marca }}
+                    </h4>
+                    <h4 class="card-footer" style="color:black;">
+                        Modelo:  {{ producto.modelo }}
+                    </h4>
+                </div>
+                <div class="row col-12">
+                    <button type="button" *ngIf="producto.idUsuario != usuarioIdLogin && parametroTipoProducto != 'admin'" class="col-7 text-center btn btn-primary btn-block btn-lg" (click)="abrirModal()">Contactar
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                        </svg>
+                    </button>
+                    <input *ngIf="producto.idUsuario != usuarioIdLogin  && parametroTipoProducto != 'admin'" (change)="destacarProducto()" id="heart" [(ngModel)]="productoDestacado" type="checkbox"/>
+                    <label *ngIf="producto.idUsuario != usuarioIdLogin && parametroTipoProducto != 'admin'" class="col-5 text-right" for="heart">❤</label>                    
+                </div>    
+                <div class="text-center mt-3" *ngIf="producto.idUsuario != usuarioIdLogin && parametroTipoProducto == 'marketPlace' && !esProductoDenunciado ">
+                    <button type="button" class="btn btn-danger" (click)="denunciarProducto( producto.idProducto )" >Denunciar    
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-exclamation-octagon-fill" viewBox="0 0 16 16">
+                            <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>                        
+                    </button>
+                </div>            
+            </div>
+        </div>
+    </div>
+
+    <app-pop-up-contactar *ngIf="modalAbierto" (click)="cerrarModal()"></app-pop-up-contactar>
+
+    <div class="col-md-12  text-left detalleProducto">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title" style="color:black;">Detalles:</h2>
+                <h4 style="color:black;" >{{ producto.detalle }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="tipoProductoUrl == 'admin' && producto.tipoProducto == 'R' && producto.imagenRepuestoContenido != null"  class="col-12 mt-3 text-center">
+        <h5>Imagen del grabado del repuesto</h5>
+        <img [src]="imagenRecursoData" width="350px" height="300px">              
+    </div>
+
+</div>

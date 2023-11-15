@@ -24,7 +24,7 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
+            "styles": [              
               "src/styles.css"
             ],
             "scripts": []
@@ -71,7 +71,8 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "motoAmigo:build"
+            "browserTarget": "motoAmigo:build",
+            "ssl": true
           }
         },
         "test": {
@@ -94,5 +95,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

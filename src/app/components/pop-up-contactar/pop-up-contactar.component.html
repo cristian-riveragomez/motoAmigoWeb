@@ -1,0 +1,21 @@
+
+<div class="modal bd-example-modal-lg" tabindex="-1" role="dialog" [ngClass]="{ 'show': modalAbierto }" aria-labelledby="exampleModalLabel" aria-hidden="true">  
+  <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" style="color:black" (click)="$event.stopPropagation()">Contactar con el dueño</h5>
+              <button type="button" class="close" (click)="cerrarModal()">
+                <span>&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" (click)="$event.stopPropagation()">
+                <label for="message-text" style="color:black" class="col-form-label">Escriba un mensaje de contacto:</label>
+                <textarea class="form-control" [(ngModel)]="mensajePopup" (click)="$event.stopPropagation()"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="enviarMail()">Enviar mensaje</button>
+                <button type="button" class="btn btn-danger" (click)="cerrarModal()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>

@@ -1,0 +1,239 @@
+<h1 class="mt-3">Producto</h1>
+<hr />
+<div class="col-12 text-right mb-3">
+  <button [routerLink]="['/miCuenta']" class="btn btn-primary">
+    <i class="fa fa-arrow-left"></i>
+    Regresar
+  </button>
+</div>
+<form
+  autocomplete="off"
+  (ngSubmit)="guardarProducto(formularioValue)"
+  #formularioValue="ngForm"
+>
+  <div class="row col-12">
+    <div class="col-6">
+      <div class="form-group row col-12">
+        <label class="col-form-label col-2">Nombre</label>
+        <div class="col-10">
+          <input
+            class="form-control"
+            type="text"
+            name="nombre"
+            maxlength="50"
+            required
+            [(ngModel)] = "producto.nombre"
+            #nombre ="ngModel"
+            [class.is-invalid]="nombre.invalid && nombre.touched"
+          />
+          <small
+            *ngIf="nombre.invalid && nombre.touched"
+            class="form-text text-danger"
+          >
+            El campo Nombre es obligatorio</small
+          >
+        </div>
+      </div>
+
+      <div class="form-group row col-12">
+        <label class="col-form-label col-2">Detalle</label>
+        <div class="col-10">
+          <textarea
+            class="form-control"
+            type="text"
+            name="detalle"
+            [(ngModel)]="producto.detalle"
+            #detalle="ngModel"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="form-group row col-12">
+        <label class="col-form-label col-2">Precio</label>
+        <div class="col-10">
+          <input
+            class="form-control"
+            type="text"
+            name="precio"
+            required
+            [(ngModel)]="producto.precio"
+            [class.is-invalid]="precio.invalid && precio.touched"
+            #precio="ngModel"
+            maxlength="10"
+            pattern="[0-9]+"
+          />
+          <small
+            *ngIf="precio.invalid && precio.touched"
+            class="form-text text-danger"
+          >
+            El campo Precio es obligatorio</small
+          >
+        </div>
+      </div>
+
+      <div class="form-group row col-12">
+        <label class="col-form-label col-2">Marca</label>
+        <div class="col-10">
+          <input
+            class="form-control"
+            type="text"
+            name="marca"
+            required
+            [(ngModel)]="producto.marca"
+            [class.is-invalid]="marca.invalid && marca.touched"
+            #marca="ngModel"
+            maxlength="30"
+          />
+          <small
+            *ngIf="marca.invalid && precio.touched"
+            class="form-text text-danger"
+          >
+            El campo Marca es obligatorio</small
+          >
+        </div>
+      </div>
+
+      <div class="form-group row col-12">
+        <label class="col-form-label col-2">Modelo</label>
+        <div class="col-10">
+          <input
+            class="form-control"
+            type="text"
+            name="modelo"
+            required
+            [(ngModel)]="producto.modelo"
+            [class.is-invalid]="modelo.invalid && modelo.touched"
+            #modelo="ngModel"
+            maxlength="30"
+          />
+          <small
+            *ngIf="modelo.invalid && precio.touched"
+            class="form-text text-danger"
+          >
+            El campo Modelo es obligatorio</small
+          >
+        </div>
+      </div>
+
+      <div *ngIf="productoId == 'nuevo'" class="form-group col-12 row">
+        <label class="col-4 col-form-label">Tipo de producto</label>
+        <div class="col-8 text-center">
+          <div class="form-check form-check-inline">
+            <input
+            (click)="validacionRepuesto(false)"
+              class="form-check-input"
+              type="radio"
+              name="tipoProducto"
+              value="A"
+              [class.is-invalid]="tipoProducto.invalid && tipoProducto.touched"
+              required
+              [(ngModel)]="producto.tipoProducto"
+              #tipoProducto="ngModel"
+            />
+            <label class="form-check-label" for="inlineRadio1">Accesorio</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              (click)="validacionRepuesto(true)"
+              class="form-check-input"
+              type="radio"
+              name="tipoProducto"
+              value="R"
+              [class.is-invalid]="tipoProducto.invalid && tipoProducto.touched"
+              required
+              [(ngModel)]="producto.tipoProducto"
+              #tipoProducto="ngModel"
+            />
+            <label class="form-check-label" for="inlineRadio2">Repuesto</label>
+          </div>
+          <small
+            *ngIf="tipoProducto.invalid && tipoProducto.touched"
+            class="form-text text-danger"
+            >Seleccione un tipo de producto</small
+          >
+        </div>
+      </div>
+      
+      <div class="alert alert-danger mt-1" role="alert" *ngIf="esRepuestoAValidar && productoId == 'nuevo'">
+        IMPORTANTE: En caso de generar un repuesto que sea uno de los siguientes. 
+        <br>Debe adjuntarse una imagen del repuesto con el grabado de la patente.
+        <br>Luego de su creación sera evaluado por el administrador para aprobarlo o rechazarlo. Se informará por mail cual fue la accion a tomada.
+      </div>
+
+      <div class="form-group row" *ngIf="esRepuestoAValidar && productoId == 'nuevo'">        
+        <label class="col-6 col-form-label">Seleccione el tipo de repuesto  </label>
+        
+        <select class="col-5" 
+          [(ngModel)]="selectedOption"
+          name="tipoRepuesto"
+          >          
+          <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+        </select>        
+        
+      </div>
+
+    </div>
+
+    <div *ngIf="productoId == 'nuevo'"  class="col-6">
+      <h3 class="mb-4">Inserte la imagen del producto</h3>
+      
+      <div *ngIf="previsualizacion" class="mt-3 text-center">
+          <img [src]="previsualizacion" width="35%" height="35%">
+        </div>
+      
+      <diV class="mt-3">
+        <input (change) = "capturarArchivo($event)"  class="form-control" type="file" required>       
+      </diV>   
+      
+      <div class="col-10 mt-5" *ngIf="selectedOption != 'Otro' && selectedOption != 'vacio' ">
+        <h5 class="col-12">Inserte la imagen del repuesto donde fue grabado</h5>            
+        
+        <div *ngIf="previsualizacionRepuestoNuevo" class="mt-2 text-center">
+            <img [src]="previsualizacionRepuestoNuevo" width="35%" height="35%">
+          </div>
+        
+        <diV class="mt-2">
+          <input (change) = "capturarRepuesto($event)"  class="form-control" type="file">
+        </diV>   
+      </div>      
+    </div>    
+
+    <div *ngIf="productoId != 'nuevo'"  class="col-6 text-center">
+        <img [src]="imagenData" width="80%" height="80%">         
+    </div>
+
+    <div class="col-6" *ngIf="productoId != 'nuevo' && esRepuestoRechazado">
+        <h5 class="col-12">Inserte la imagen del repuesto donde fue grabado</h5>            
+        
+        <div *ngIf="previsualizacionRepuestoNuevo" class="mt-2 text-center">
+            <img [src]="previsualizacionRepuestoNuevo" width="35%" height="35%">
+          </div>
+        
+        <diV class="mt-2">
+          <input (change) = "capturarRepuesto($event)"  class="form-control" type="file">
+        </diV>   
+    </div>
+
+  </div> 
+
+  <div *ngIf="productoId == 'nuevo'"  class="alert alert-warning mt-2" role="alert">
+    INFO: Cada producto puede ser denunciado hasta 3 veces por distintos usuarios para luego ser validado por el administrador.
+    <br> En caso de ser rechazado se eliminará y se informará por mail. En caso contrario se volverá a mostrar para su interacción.
+  </div>
+
+  <div class="d-grid gap-2 col-4 mx-auto botonCrear">
+    <button *ngIf="productoId == 'nuevo'"  class="btn btn-success btn-block btn-lg" type="submit">
+      Guardar
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-save-fill" viewBox="0 0 16 16">
+        <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v7.793L4.854 6.646a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l3.5-3.5a.5.5 0 0 0-.708-.708L8.5 9.293V1.5z"/>
+      </svg>
+    </button>
+
+    <button *ngIf="productoId != 'nuevo'"  class="btn btn-success btn-block btn-lg" type="submit">
+      Actualizar
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/>
+      </svg>
+    </button>
+  </div>
+</form>
