@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ConnectionsService, Producto} from '../../services/connections.service';
+import { ConnectionsService } from '../../services/connections.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '../../services/auth.service';
+import { Producto } from '../../models/dtoModelos.component';
 
 
 @Component({

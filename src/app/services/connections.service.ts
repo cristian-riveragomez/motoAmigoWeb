@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Usuario, UsuarioLogin, Mail } from '../models/dtoModelos.component';
 @Injectable({
   providedIn: 'root'
 })
 export class ConnectionsService {
 
-  private dominio: string = 'https://www.motoamigoapi.somee.com'
+   private dominio: string = 'https://www.motoamigoapi.somee.com'
+  //private dominio: string = 'https://localhost:7265'
   constructor(private http: HttpClient) 
   {    
   }
@@ -212,86 +214,4 @@ export class ConnectionsService {
     );
   }
 
-}
-
-export interface DatosLocalizacion {
-  latitud: string;
-  longitud: string;
-}
-
-export interface ClimaPorDia {
-  temperaturaMaxima: string;
-  temperaturaMinima: string;
-  descripcionClima: string;
-  probabilidadLluviaMaxima: number;
-  diaDeLaSemana: string;
-  fecha: string;
-  icono: string;
-}
-
-export interface listaClimaPorDiaInterfaz {
-  listaClimaPorDiaInterfaz: ClimaPorDia[];
-}
-
-export interface DatosClimaActuales {
-  temperatura: number;
-  sensacionTermica: number;
-  humedad: number;
-  descripcionClima: string;
-  icono: string;
-}
-
-
-export class  Usuario {
-
-  constructor()
-  {}
-  id: number;
-  nombre: string;
-  apellido: string;
-  nombreUsuario: string;
-  contrasena: string;
-  email: string;
-  esAdmin: boolean;
-}
-
-export class  UsuarioLogin {
-
-  constructor()
-  {}
-
-  id: number;
-  contrasena: string;
-  emailUsuario: string;
-}
-
-export class Producto {
-  constructor()
-  {}
-  idProducto: string;
-  nombre: string;
-  detalle: string;
-  precio: number;
-  marca: string;
-  modelo: string;
-  idUsuario: number;
-  esDestacado: boolean;
-  cantDenuncias: number;
-  tipoProducto: string;
-  imagenNombre: string;
-  imagenContenido: string;
-  estado: string;
-  imagenRepuestoNombre:string;
-  imagenRepuestoContenido: string;
-  tipoRepuesto: string;
-}
-
-export class Mail{
-  
-  constructor(){}
-  id: string;
-  enviado:boolean;
-  idUsuarioReceptor: string;  
-  titulo: string;
-  cuerpo: string
 }

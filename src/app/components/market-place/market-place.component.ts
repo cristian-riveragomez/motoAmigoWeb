@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ConnectionsService, Producto } from "../../services/connections.service";
+import { ConnectionsService } from "../../services/connections.service";
 import { Router } from "@angular/router";
 import  Swal  from 'sweetalert2';
+import { Producto } from '../../models/dtoModelos.component';
 
 @Component({
   selector: 'app-market-place',

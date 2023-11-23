@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ConnectionsService, ClimaPorDia, DatosClimaActuales } from "../../services/connections.service";
+import { ConnectionsService } from "../../services/connections.service";
 import Swal from 'sweetalert2';
+import { DatosClimaActuales, ClimaPorDia } from '../../models/dtoModelos.component';
 
 @Component({
   selector: 'app-clima',

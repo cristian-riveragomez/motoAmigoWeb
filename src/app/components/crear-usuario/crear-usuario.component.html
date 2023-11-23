@@ -75,21 +75,24 @@
       </div>
     </div>
 
-    <div class="form-group row ">
+    <div class="form-group row">
       <label class="col-2 col-form-label">Email</label>
       <div class="col-7">
         <input
           class="form-control"
           type="email"
           [(ngModel)]="usuario.email"
-          name="email"  
-          [class.is-invalid] = "email.invalid && email.touched"  
-          #email = "ngModel"
-          maxlength="50"     
+          name="email"
+          [class.is-invalid]="email.invalid && email.touched"
+          #email="ngModel"
+          maxlength="50"
           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-          required 
+          required
         />
-        <small *ngIf="email.invalid && email.touched" class="form-text text-danger"> El campo Email es obligatorio</small>
+        <small *ngIf="email.invalid && email.errors && email.touched" class="form-text text-danger">
+          <span *ngIf="email.errors['required']">El campo Email es obligatorio</span>
+          <span *ngIf="email.errors['pattern'] && !email.errors['required']">El formato del Email es incorrecto</span>
+        </small>
       </div>
     </div>
 

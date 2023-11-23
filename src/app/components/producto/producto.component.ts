@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConnectionsService, Mail } from "../../services/connections.service";
+import { ConnectionsService } from "../../services/connections.service";
 import { PopupServiceService }from "../../services/popup.service.service";
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
+import { Mail } from '../../models/dtoModelos.component';
 
 @Component({
   selector: 'app-producto',

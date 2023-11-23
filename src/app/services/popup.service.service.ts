@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Mail } from './connections.service';
+import { Mail } from '../models/dtoModelos.component';
+
 
 @Injectable({
   providedIn: 'root'

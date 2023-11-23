@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ConnectionsService, Usuario } from '../../services/connections.service';
+import { ConnectionsService } from '../../services/connections.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
+import { Usuario } from '../../models/dtoModelos.component';
 
 @Component({
   selector: 'app-crear-usuario',

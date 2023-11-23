@@ -18,10 +18,10 @@ export class EstablecimientosComponent {
   checkboxTalleresValue: boolean = false;
   checkboxGomeriasValue: boolean = false;
 
-  listaEstablecimientos: EstablecimientoClass[] = [];
+  listaEstablecimientos: Establecimientos[] = [];
   marcadores: google.maps.Marker[] = []; // Lista de marcadores
 
-  miUbicacion: EstablecimientoClass;
+  miUbicacion: Establecimientos;
 
   establecimientoGomerias: string = 'gomerias';
   establecimientoEstacionesServicio: string = 'estaciones de servicio';
@@ -69,7 +69,7 @@ export class EstablecimientosComponent {
 
             if (place.geometry && place.name && place.vicinity && place.icon && place.geometry.location) 
             {
-              let nuevoEstablecimiento = new EstablecimientoClass(
+              let nuevoEstablecimiento = new Establecimientos(
                 place.name,
                 place.vicinity,
                 place.geometry.location.lat(),
@@ -130,7 +130,7 @@ export class EstablecimientosComponent {
       this.mapOptions
     );
 
-    this.miUbicacion = new EstablecimientoClass(
+    this.miUbicacion = new Establecimientos(
       'Mi Ubicacion',
       '',
       this.latitude,
@@ -211,7 +211,7 @@ export class EstablecimientosComponent {
 
 }
 
-export class EstablecimientoClass {
+export class Establecimientos {
   constructor(
     public nombre: string,
     public direccion: string,

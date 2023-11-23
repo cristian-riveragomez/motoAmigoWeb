@@ -49,18 +49,29 @@
                         type="text"
                         id="precioMinimoInput"
                         [(ngModel)]="precioMinimoInput"
+                        name="precioMinimo"
                         maxlength="10"
+                        pattern="[0-9]+"
                         class="form-control"
+                        #precioMinimo="ngModel"
                     >   
-                    
+                    <small *ngIf="precioMinimo.errors && precioMinimo.errors['pattern']" class="form-text text-danger">
+                        El valor ingresado no es un número
+                    </small>
                     <label style="color:black;">Precio máximo:</label>
                     <input
                         type="text"
                         id="precioMaximoInput"
                         [(ngModel)]="precioMaximoInput"
+                        name="precioMaximo"
                         maxlength="10"
+                        pattern="[0-9]+"
                         class="form-control"
+                        #precioMaximo="ngModel"
                     >
+                    <small *ngIf="precioMaximo.errors && precioMaximo.errors['pattern']" class="form-text text-danger">
+                        El valor ingresado no es un número
+                    </small>
                     <br>
                     <button class="btn btn-success btn-block btn-lg" (click)="ObtenerProductosPorPrecio()">Buscar</button>
                 </div>

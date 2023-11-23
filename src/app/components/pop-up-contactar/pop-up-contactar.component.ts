@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Mail } from "../../services/connections.service";
 import { PopupServiceService }from "../../services/popup.service.service";
 import { ConnectionsService} from '../../services/connections.service';
 import  Swal  from 'sweetalert2';
+import { Mail } from '../../models/dtoModelos.component';
 
 @Component({
   selector: 'app-pop-up-contactar',

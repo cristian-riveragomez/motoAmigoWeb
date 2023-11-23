@@ -62,12 +62,10 @@
             maxlength="10"
             pattern="[0-9]+"
           />
-          <small
-            *ngIf="precio.invalid && precio.touched"
-            class="form-text text-danger"
-          >
-            El campo Precio es obligatorio</small
-          >
+          <small *ngIf="precio.invalid && precio.errors && precio.touched" class="form-text text-danger">
+            <span *ngIf="precio.errors['required']">El campo precio es obligatorio</span>
+            <span *ngIf="precio.errors['pattern'] && !precio.errors['required']">El formato del precio es incorrecto</span>
+          </small>
         </div>
       </div>
 

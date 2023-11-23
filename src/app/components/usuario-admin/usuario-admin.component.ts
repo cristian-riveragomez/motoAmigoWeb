@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ConnectionsService, Producto, Usuario, Mail } from '../../services/connections.service';
+import { ConnectionsService} from '../../services/connections.service';
 import  Swal  from 'sweetalert2';
-import { response } from 'express';
+import { Producto, Usuario, Mail } from '../../models/dtoModelos.component';
 
 @Component({
   selector: 'app-usuario-admin',
@@ -127,7 +127,17 @@ export class UsuarioAdminComponent {
     }).then((resp:any) => {
       
       if(resp.value)
-      {        
+      {
+        let mailContacto =  new Mail();
+        mailContacto.titulo = 'Eliminacion de usuario';
+        mailContacto.enviado = false;
+        mailContacto.cuerpo = 'Hola ' + usuario.nombreUsuario + ', lamentamos informar que su usuario fue eliminado por el administrador.'
+        mailContacto.idUsuarioReceptor =  usuario.id.toString()
+        
+        console.log(mailContacto)
+        this.connectionsService.envioDeMail(mailContacto).subscribe((response: any) =>{
+        });  
+
         this.connectionsService.borrarUsuario(usuario.id.toString()).subscribe( (resp:any)=>{
           Swal.fire(
             {      
@@ -136,7 +146,7 @@ export class UsuarioAdminComponent {
               showConfirmButton: false,
               timer:1500
             })
-          this.usuarios.splice(i, 1);
+          this.usuarios.splice(i, 1);                
          },
          (error:any) =>{
      

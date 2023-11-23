@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ConnectionsService, UsuarioLogin } from '../../services/connections.service';
+import { ConnectionsService } from '../../services/connections.service';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SocialAuthService, FacebookLoginProvider, SocialUser } from '@abacritt/angularx-social-login';
+import { UsuarioLogin } from '../../models/dtoModelos.component';
 
 
 @Component({

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ConnectionsService, Usuario, Producto } from "../../services/connections.service";
+import { ConnectionsService } from "../../services/connections.service";
 import  Swal  from 'sweetalert2';
 import { AuthService } from '../../services/auth.service';
+import { Usuario, Producto } from '../../models/dtoModelos.component';
 
 @Component({
   selector: 'app-mi-cuenta',
