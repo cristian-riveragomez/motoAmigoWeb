@@ -66,11 +66,15 @@
             name="contrasena"
             required
             [(ngModel)]="usuario.contrasena"
-            [class.is-invalid] = "contrasena.invalid && contrasena.touched"  
             #contrasena = "ngModel"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_.-])[a-zA-Z\d!@#$%^&*()_.-]{8,}$"
+            [class.is-invalid]="contrasena.invalid && contrasena.touched"
             maxlength="20"
           />
-          <small *ngIf="contrasena.invalid && contrasena.touched" class="form-text text-danger"> El campo Constraseña es obligatorio</small>
+          <small *ngIf="contrasena.invalid && contrasena.errors && contrasena.touched" class="form-text text-danger">
+              <span *ngIf="contrasena.errors['required']">El campo Contraseña es obligatorio</span>
+              <span *ngIf="contrasena.errors['pattern'] && !contrasena.errors['required']">La contraseña debe tener al menos 8 caracteres, una letra mayúscula y debe contener números</span>            
+          </small>
         </div>
       </div>
     </div>
