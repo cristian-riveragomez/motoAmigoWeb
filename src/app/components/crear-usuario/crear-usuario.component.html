@@ -73,7 +73,7 @@
           />
           <small *ngIf="contrasena.invalid && contrasena.errors && contrasena.touched" class="form-text text-danger">
               <span *ngIf="contrasena.errors['required']">El campo Contraseña es obligatorio</span>
-              <span *ngIf="contrasena.errors['pattern'] && !contrasena.errors['required']">La contraseña debe tener al menos 8 caracteres, una letra mayúscula y debe contener números</span>            
+              <span *ngIf="contrasena.errors['pattern'] && !contrasena.errors['required']">La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un caracter especial y debe ser alfanumerico</span>            
           </small>
         </div>
       </div>

@@ -134,7 +134,6 @@ export class UsuarioAdminComponent {
         mailContacto.cuerpo = 'Hola ' + usuario.nombreUsuario + ', lamentamos informar que su usuario fue eliminado por el administrador.'
         mailContacto.idUsuarioReceptor =  usuario.id.toString()
         
-        console.log(mailContacto)
         this.connectionsService.envioDeMail(mailContacto).subscribe((response: any) =>{
         });  
 
