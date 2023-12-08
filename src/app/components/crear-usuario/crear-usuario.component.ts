@@ -67,11 +67,10 @@ export class CrearUsuarioComponent {
         }, 1700);           
     },
     (error:any) =>{
-
       Swal.fire({
         icon:'error',
         title:'Error al crear el usuario',
-        text: error.message
+        text: error.error
       });
     });
   }

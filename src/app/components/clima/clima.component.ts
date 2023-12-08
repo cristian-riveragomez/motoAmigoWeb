@@ -51,7 +51,7 @@ export class ClimaComponent implements OnInit
       Swal.fire({
         icon:'error',
         title:'Error al refrescar',
-        text: error.message
+        text: error.error
       });
     }
     
@@ -79,7 +79,7 @@ export class ClimaComponent implements OnInit
       Swal.fire({
         icon:'error',
         title:'Error al refrescar',
-        text: error.message
+        text: error.error
       });
     }     
     );
