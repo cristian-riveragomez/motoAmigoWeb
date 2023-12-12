@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConnectionsService } from '../../services/connections.service';
 import { AuthService } from '../../services/auth.service';
 import { NgForm } from '@angular/forms';
@@ -7,19 +7,20 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SocialAuthService, FacebookLoginProvider, SocialUser } from '@abacritt/angularx-social-login';
 import { UsuarioLogin } from '../../models/dtoModelos.component';
+import { AppComponent } from '../../app.component';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent  {
+export class LoginComponent implements OnInit  {
   
   usuarioLogin!: UsuarioLogin;
   inputType: string = 'password';
 
   constructor(private connectionService: ConnectionsService, private router: Router, private autService: AuthService,
-              private authService: SocialAuthService)
+              private authService: SocialAuthService, private appComponent: AppComponent)
   {
     this.usuarioLogin =  new UsuarioLogin();    
   }  
@@ -28,6 +29,10 @@ export class LoginComponent  {
     this.inputType = this.inputType === 'password' ? 'text' : 'password';
   }
   
+  ngOnInit(): void {   
+    this.appComponent.mostrarNavbar = false;
+  }
+
   login(form: NgForm)
   {  
     if(form.invalid)
@@ -53,7 +58,7 @@ export class LoginComponent  {
       Swal.fire({
         icon:'error',
         title:'Error al autenticar',
-        text: error.message
+        text: error.error
       });
     });
 
@@ -63,12 +68,9 @@ export class LoginComponent  {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
       .then((user: SocialUser) => {
 
-        // Aquí puedes manejar la respuesta exitosa del inicio de sesión de Facebook
-        //this.router.navigateByUrl('/home');      
-        
       })
       .catch((error: any) => {
-        // Aquí puedes manejar el error del inicio de sesión de Facebook
+
         console.log(error.error);
       });
   }
